@@ -56,6 +56,7 @@
                     <a class="navbar-brand" href="{{ url('/admin') }}">
                         {{ "CCI Summit" }}
                     </a>
+                    <a href="{{route('admin.Event.index')}}">Event</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">

@@ -16,6 +16,8 @@ Route::resource('absensi','AbsenController')->middleware('admin');
 
 Route::resource('list','ListController')->middleware('admin');
 
+Route::resource('Event','AdminEventController')->middleware('admin');
+
 Route::get('/confirmation/{id}',[
       'as' => 'createdata.confirmation',
       'uses' => 'CreateDataController@confirmation'
