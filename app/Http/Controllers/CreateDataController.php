@@ -60,10 +60,7 @@ class CreateDataController extends Controller
                   ->Orwhere('buyers.email', 'like', '%' . $search . '%');
           })->orderBy($sort, $direction)->latest()->paginate(10)->withPath('?search=' . $search);
         }else{
-          $createdata = transaction::join('users', 'transactions.id_user', '=', 'users.id')->join('buyers', 'transactions.id_buyer', '=', 'buyers.id')->select('transactions.*','buyers.nama','buyers.from','buyers.no_hp','buyers.email', 'users.name as name_created_by')->where('transactions.deleted', '=', null)->where(function($q) {
-                    $q->where('transactions.jenis_tiket', '=', 4)
-                      ->orWhere('transactions.jenis_tiket', '=', 5);
-                })
+          $createdata = transaction::join('users', 'transactions.id_user', '=', 'users.id')->join('buyers', 'transactions.id_buyer', '=', 'buyers.id')->select('transactions.*','buyers.nama','buyers.from','buyers.no_hp','buyers.email', 'users.name as name_created_by')->where('transactions.deleted', '=', null)
                 ->where(function($query) use ($search) {
             $query->Orwhere('buyers.nama', 'like', '%' . $search . '%')
                   ->Orwhere('buyers.no_hp', 'like', '%' . $search . '%')

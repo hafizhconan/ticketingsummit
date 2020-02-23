@@ -68,7 +68,7 @@
 
                     <div class="col-md-5">
 
-                      <img class="img-fluid mb-4 mb-md-0" src="{{ asset($acara[$createdata->jenis_tiket]->logo) }}" alt="profile image">
+                      <img class="img-fluid mb-4 mb-md-0" src="{{ asset($acara->logo) }}" alt="profile image">
 
                     </div>
 
@@ -76,23 +76,23 @@
 
                       <div class="d-flex">
 
-                        <h3>{{ $acara[$createdata->jenis_tiket]->nama}}</h3>
+                        <h3>{{ $acara->nama}}</h3>
 
                       </div>
 
-                      <h5>{{ $acara[$createdata->jenis_tiket]->tgl}}</h5>
+                      <h5>{{ $acara->tgl}}</h5>
 
-                      <h5>{{ $acara[$createdata->jenis_tiket]->lokasi}}</h5>
+                      <h5>{{ $acara->lokasi}}</h5>
 
                       <p class="text-gray ellipsis mb-2">
 
-                        Pemateri : {{ $acara[$createdata->jenis_tiket]->pemateri}}
+                        Pemateri : {{ $acara->pemateri}}
 
                       </p>
 
                       <p class="text-gray ellipsis mb-2">
 
-                        Free : {{ $acara[$createdata->jenis_tiket]->keterangan}}
+                        Free : {{ $acara->keterangan}}
 
                       </p>
 
@@ -106,7 +106,7 @@
 
                             $transaction_acc = App\transaction::where('transactions.deleted', '=', null)->where('transactions.jenis_tiket', '=', $createdata->jenis_tiket)->count();
 
-                            $sisa = $acara[$createdata->jenis_tiket]->jumlah-$transaction_acc;
+                            $sisa = $acara->jumlah-$transaction_acc;
 
                           ?>
 
@@ -122,7 +122,7 @@
 
                            <?php 
 
-                              $date = \Carbon\Carbon::parse($acara[$createdata->jenis_tiket]->due);
+                              $date = \Carbon\Carbon::parse($acara->due);
 
                               $now = \Carbon\Carbon::now();
 
@@ -138,7 +138,7 @@
 
                               <div class="ticket-details">
 
-                                  <h3>Price : {{ $acara[$createdata->jenis_tiket]->harga}}K</h3>
+                                  <h3>Price : {{ $acara->harga}}K</h3>
 
                               </div>
 

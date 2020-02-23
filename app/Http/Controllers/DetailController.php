@@ -55,8 +55,8 @@ class DetailController extends Controller
      */
     public function show($id)
     {
-        $acara = acara::all();
-        $createdata = transaction::findOrFail($id);
+        $createdata = transaction::find($id);
+        $acara = acara::find($createdata->jenis_tiket);
         $date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $createdata->created_at)->format('Y-m-d');
         $buyer = buyer::find($createdata->id_buyer);
         $user = user::find($createdata->id_user);

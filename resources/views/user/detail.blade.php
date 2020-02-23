@@ -59,22 +59,7 @@
         <div class="row">
 
             <div class="col-12 grid-margin" >
-              <?php
-                if($createdata->jenis_tiket == 1){
-                  $nomor = 1;
-                }else if($createdata->jenis_tiket == 'Umum'){
-                  $nomor = 0;
-                }else if($createdata->jenis_tiket == 2){
-                  $nomor = 2;
-                }else if($createdata->jenis_tiket == 3){
-                  $nomor = 3;
-                }else if($createdata->jenis_tiket == 4){
-                  $nomor = 4;
-                }else{
-                  $nomor = 0;
-                }
-              ?>
-                <div class="card" style="background-image: url({{ asset($acara[$nomor]->logo) }});background-repeat: no-repeat; background-size: 250px; background-position: center bottom; ">
+                <div class="card" style="background-image: url({{ asset($acara->logo) }});background-repeat: no-repeat; background-size: 250px; background-position: center bottom; ">
 
                     <div class="card-body">
 
@@ -83,13 +68,13 @@
                       <div class="ticket-details col-md-9">
 
                         <div class="d-flex">
-                        <h3>{{ $acara[$nomor]->nama}}</h3>
+                        <h3>{{ $acara->nama}}</h3>
 
                       </div>
 
-                      <h5>{{ $acara[$nomor]->tgl}}</h5>
+                      <h5>{{ $acara->tgl}}</h5>
 
-                      <h5>{{ $acara[$nomor]->lokasi}}</h5>
+                      <h5>{{ $acara->lokasi}}</h5>
 
                       <p class="text-gray ellipsis mb-2">
 
