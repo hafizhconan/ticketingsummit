@@ -78,6 +78,7 @@ class AdminEventController extends Controller
             'jumlah' => 'required|numeric',
             'harga' => 'required|numeric',
             'keterangan' => 'required',
+            'logo' => 'required',
 
         );
 
@@ -134,7 +135,8 @@ class AdminEventController extends Controller
      */
     public function edit($id)
     {
-        //
+        $acara = Acara::find($id);
+        return view('admin/Event/edit', compact('acara'));
     }
 
     /**
@@ -146,7 +148,49 @@ class AdminEventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = array(
+            'nama' => 'required|max:255',
+            'pemateri' => 'required',
+            'tgl' => 'required',
+            'time' => 'required',
+            'jumlah' => 'required|numeric',
+            'harga' => 'required|numeric',
+            'keterangan' => 'required',
+            'logo' => 'required',
+
+        );
+
+        $validation = Validator::make(Input::all(), $rules);
+        if($validation->fails()) {
+                return redirect()->route('admin.Event.create')->withInput()->withErrors($validation->messages())->with('status', 'Masukan Data yang sesuai!');
+        }
+
+        //Tanggal
+        $tgl = $request->tgl;
+        $bulan = date("F", strtotime($tgl)); //Month
+        $tanggal = date("d", strtotime($tgl)); //Date
+        $year = date("Y", strtotime($tgl)); //Year
+        $kata = $bulan." ".$tanggal.", ".$year." Pukul ".$request->time." - Selesai";
+        
+        //Logo
+        $file = RequestFacade::file('logo');
+        $filename = $file->getClientOriginalName();
+        $path = public_path().'/images';
+        $file->move($path, $filename);
+
+        $data = new Acara;
+        $data->nama = $request->nama;
+        $data->logo = "images/".$filename;
+        $data->tgl = $kata;
+        $data->lokasi = $request->lokasi;
+        $data->pemateri = $request->pemateri;
+        $data->due = $tgl." ". $request->time;
+        $data->keterangan = $request->keterangan;
+        $data->jumlah = $request->jumlah;
+        $data->harga = $request->harga;
+        $data->save();
+
+        return redirect()->route('admin.Event.index')->with('status', 'Data berhasil dibuat!');
     }
 
     /**

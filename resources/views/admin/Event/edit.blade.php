@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @section('content')
    
     <div class="container">
@@ -8,41 +8,60 @@
 							<div class="table-responsive">
                             <center>
 <h4>EDIT</h4></center>
-{!! Form::model($createdatas, ['route'=>['createdata.update', $createdatas->id], 'method'=> 'PATCH'])  !!}
+{!! Form::model($acara, ['route'=>['admin.Event.update', $acara->id], 'method'=> 'PATCH','enctype'=>'multipart/form-data'])  !!}
     <div class="col-md-10 col-md-offset-1">
         <div class="form-group">
-        {!! Form::label('nama','Nama Lengkap') !!}
-        {!! Form::text('nama', $createdatas->nama, array('class' =>'form-control','placeholder' => 'Masukkan Nama Lengkap')) !!}
+        {!! Form::label('nama','Nama Acara') !!}
+        {!! Form::text('nama', $acara->nama, array('class' =>'form-control','placeholder' => 'Masukkan Nama Acara')) !!}
+        </div>
+    </div>
+    <img src="{{ asset($acara->logo)}}" alt="" width="100%">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="form-group">
+        {!! Form::label('logo','Logo') !!}
+        <input type="file" name="logo" id="logo" class="form-control">
         </div>
     </div>
     <div class="col-md-offset-1 col-md-5">
         <div class="form-group">
-        {!! Form::label('nim','NIM') !!}
-        {!! Form::text('nim', $createdatas->nim, array('class' =>'form-control','placeholder' => 'Masukkan NIM')) !!}
+        {!! Form::label('pemateri','Pemateri') !!}
+        {!! Form::text('pemateri', $acara->pemateri, array('class' =>'form-control','placeholder' => 'Masukkan Pemateri')) !!}
         </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-3">
         <div class="form-group">
-        {!! Form::label('tgl_daftar','Tanggal Daftar') !!}
-        {!! Form::date('tgl_daftar', $createdatas->tgl_daftar, array('class' =>'form-control','placeholder' => 'Masukkan Tanggal Daftar')) !!}
+        {!! Form::label('tgl','Tanggal Acara') !!}
+        {!! Form::date('tgl', \Carbon\Carbon::now(), array('class' =>'form-control','placeholder' => 'Masukkan Tanggal Daftar')) !!}
+       </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+        {!! Form::label('time','Waktu Mulai') !!}
+        {!! Form::time('time', \Carbon\Carbon::now(), array('class' =>'form-control','placeholder' => 'Masukkan Tanggal Daftar')) !!}
        </div>
     </div>
     <div class="col-md-offset-1 col-md-5">
         <div class="form-group">
-        {!! Form::label('id_line','ID LINE') !!}
-        {!! Form::text('id_line', $createdatas->id_line, array('class' =>'form-control','placeholder' => 'Masukkan ID LINE')) !!}
+        {!! Form::label('jumlah','Jumlah') !!}
+        {!! Form::text('jumlah', $acara->jumlah, array('class' =>'form-control','placeholder' => 'Masukkan Jumlah Kuota')) !!}
         </div>
     </div>
     <div class="col-md-5">
         <div class="form-group">
-        {!! Form::label('no_hp','NO. HP') !!}
-        {!! Form::text('no_hp', $createdatas->no_hp, array('class' =>'form-control','placeholder' => 'Masukkan NO. HP')) !!}
+        {!! Form::label('harga','Harga') !!}
+        {!! Form::text('harga', $acara->harga, array('class' =>'form-control','placeholder' => 'Masukkan Harga')) !!}
         </div>
     </div>
     <div class="col-md-10 col-md-offset-1">
         <div class="form-group">
-        {!! Form::label('email','Email') !!}
-        {!! Form::text('email', $createdatas->email, array('class' =>'form-control','placeholder' => 'Masukkan Email')) !!}
+        {!! Form::label('lokasi','Lokasi') !!}
+        {!! Form::text('lokasi', $acara->lokasi, array('class' =>'form-control','placeholder' => 'Masukkan Lokasi')) !!}
+        </div>
+    </div>
+    <div class="col-md-10 col-md-offset-1">
+        <div class="form-group">
+        {!! Form::label('keterangan','Keterangan') !!}
+        {!! Form::text('keterangan', $acara->keterangan, array('class' =>'form-control','placeholder' => 'Masukkan Keterangan')) !!}
         </div>
     </div>
         <div class="col-md-6 col-md-offset-1">

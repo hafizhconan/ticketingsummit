@@ -33,7 +33,7 @@
 									<form method="POST" action="{{ route('admin.createdata.destroy', $a->id) }}" accept-charset="UTF-8">
 										<input name="_method" type="hidden" value="DELETE">
 										<input name="_token" type="hidden" value="{{ csrf_token() }}">
-										<a href="{{ route('admin.createdata.edit', $a->id) }}" type="submit" button type="button" class="btn btn-warning">Edit</a>
+										<a href="{{ route('admin.Event.edit', $a->id) }}" type="submit" button type="button" class="btn btn-warning">Edit</a>
 										<a href="{{ route('admin.Event.show', $a->id) }}" type="submit" button type="button" class="btn btn-warning">Detail</a>
 									</form>
 								</td>
