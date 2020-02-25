@@ -125,24 +125,12 @@
                         <tr>
                           <td>
                             <?php
-                            if($createdatas->jenis_tiket == 1){
-                              $title = 'Techweek';
-                            }else if($createdatas->jenis_tiket == 'Umum'){
-                              $title = 'UI/UX Design';
-                            }else if($createdatas->jenis_tiket == 2){
-                              $title = 'Data Debunked Day';
-                            }else if($createdatas->jenis_tiket == 3){
-                              $title = 'Net Conf';
-                            }else if($createdatas->jenis_tiket == 4){
-                              $title = 'MM';
-                            }else{
-                              $title = 'ERROR';
-                            }
+                            $title = App\acara::find($createdatas->jenis_tiket);
                             ?>
-                            {{$title}}
+                            {{$title->nama}}
                           </td>
-                          <td><?php 
-
+                          <td>
+                          <?php 
                           $id = str_pad($createdatas->id, 4, '0', STR_PAD_LEFT);
                           if($createdatas->jenis_tiket == 1){
                             $depan = 'W';
@@ -157,7 +145,8 @@
                           }else{
                             $depan = 'ERROR';
                           }
-                          ?>{{ $depan }}-{{$id}}
+                          ?>
+                          {{ $depan }}-{{$id}}
                           </td>
 
                           <td>{{$createdatas->nama}}</td>

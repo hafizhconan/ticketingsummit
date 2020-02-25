@@ -89,8 +89,8 @@ class BuyController extends Controller
 
     public function confirmation($id)
     {
-        $acara = acara::all();
         $createdata = buyer::findOrFail($id);
+        $acara = acara::find($createdata->jenis_tiket);
         $date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $createdata->created_at)->format('Y-m-d');
         $name = user::find($createdata->username);
         return view('user.confirmation', compact('createdata','date','name','acara'));
@@ -177,9 +177,8 @@ class BuyController extends Controller
      */
     public function edit($id)
     {
-        $acara = acara::all();
-        $index = $id;
-        return view('user.buy', compact('acara','index'));
+        $acara = acara::find($id);
+        return view('user.buy', compact('acara'));
     }
 
     /**

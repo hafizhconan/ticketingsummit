@@ -68,7 +68,7 @@
 
                     <div class="col-md-5">
 
-                      <img class="img-fluid mb-4 mb-md-0" src="{{ asset($acara[$index]->logo) }}" alt="profile image">
+                      <img class="img-fluid mb-4 mb-md-0" src="{{ asset($acara->logo) }}" alt="profile image">
 
                     </div>
 
@@ -76,23 +76,23 @@
 
                       <div class="d-flex">
 
-                        <h3>{{ $acara[$index]->nama}}</h3>
+                        <h3>{{ $acara->nama}}</h3>
 
                       </div>
 
-                      <h5>{{ $acara[$index]->tgl}}</h5>
+                      <h5>{{ $acara->tgl}}</h5>
 
-                      <h5>{{ $acara[$index]->lokasi}}</h5>
+                      <h5>{{ $acara->lokasi}}</h5>
 
                       <p class="text-gray ellipsis mb-2">
 
-                        Pemateri : {{ $acara[$index]->pemateri}}
+                        Pemateri : {{ $acara->pemateri}}
 
                       </p>
 
                       <p class="text-gray ellipsis mb-2">
 
-                        Free : {{ $acara[$index]->keterangan}}
+                        Free : {{ $acara->keterangan}}
 
                       </p>
 
@@ -104,9 +104,9 @@
 
                           <small class="Last-responded mr-2 mb-0 text-muted text-muted"><?php 
 
-                            $transaction_acc = App\transaction::where('transactions.deleted', '=', null)->where('transactions.jenis_tiket', '=', $index)->count();
+                            $transaction_acc = App\transaction::where('transactions.deleted', '=', null)->where('transactions.jenis_tiket', '=', $acara->id)->count();
 
-                            $sisa = $acara[$index]->jumlah-$transaction_acc;
+                            $sisa = $acara->jumlah-$transaction_acc;
 
                           ?>
 
@@ -122,7 +122,7 @@
 
                            <?php 
 
-                              $date = \Carbon\Carbon::parse($acara[$index]->due);
+                              $date = \Carbon\Carbon::parse($acara->due);
 
                               $now = \Carbon\Carbon::now();
 
@@ -138,7 +138,7 @@
 
                               <div class="ticket-details">
 
-                                  <h3>Price : {{ $acara[$index]->harga}}K</h3>
+                                  <h3>Price : {{ $acara->harga}}K</h3>
 
                               </div>
 
@@ -170,7 +170,7 @@
 
                       <h4 class="card-title text-center">FORM ORDER TICKET</h4>
 
-                      {!! Form::open(['route'=>['user.buy.update', $index], 'method'=> 'PATCH','class'=>'forms-sample'])  !!}
+                      {!! Form::open(['route'=>['user.buy.update', $acara->id], 'method'=> 'PATCH','class'=>'forms-sample'])  !!}
 
                         <div class="form-group @if ($errors->has('nama')) has-error @endif">
 
