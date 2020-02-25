@@ -105,33 +105,6 @@
         {!! Form::close() !!}
 
         </div>
-
-        <div class="col-md-12">
-
-        <center>
-
-            <div class="col-md-2 col-md-offset-3">
-
-                <h5>Jumlah Data MM Tiket : {{$transaction_total}}</h5>
-
-            </div>
-
-            <div class="col-md-2">
-
-                <h5>Jumlah Tiket MM Di ACC : {{$transaction_acc}}</h5>
-
-            </div>
-
-            <div class="col-md-2">
-
-                <h5>Jumlah Tiket MM Belum ACC : {{$transaction_not_acc}}</h5>
-
-            </div>
-
-        </center>
-
-        </div>
-
     <div class="col-md-12">
 
             <div class="panel panel-default">
@@ -174,16 +147,7 @@
 
 			<td>{{$createdatas->id}}</td>
 
-            <td><?php
-
-                if($createdatas->jenis_tiket == 2){
-                    echo '<label class="label label-success">Data Debunked Day</label>';
-                }else if($createdatas->jenis_tiket == 4){
-                    echo '<label class="label label-primary">MM</label>';
-                }else{
-                    echo '<label class="label label-danger">Error</label>';
-                }
-            ?></td>
+            <td><label class="label label-success">{{ substr($createdatas->nama_acara,0,15) }}</label></td>
 
 			<td>{{$createdatas->nama}}</td>
 
@@ -258,7 +222,7 @@
 
 <center></div></div>
 
-<a href="{{ route('admin.createdata.create') }}" button type="button" class="btn btn-info btn-lg btn-block">Tiket Baru</a></button>
+<a href="{{ route('admin.createdata.create') }}" button type="button" class="btn btn-info btn-lg btn-block disabled">Tiket Baru</a></button>
 
 </center>
 

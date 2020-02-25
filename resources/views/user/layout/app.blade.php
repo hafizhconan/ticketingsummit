@@ -33,8 +33,10 @@
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
   <!-- endinject -->
-
-  <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" />
+  <?php 
+                  $data = App\Variable::findOrFail(1);
+                ?>
+  <link rel="shortcut icon" href="{{ asset($data->main_logo) }}" />
 
   <script>
 
@@ -59,7 +61,7 @@
       <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
 
         <div class="navbar-menu-wrapper d-flex align-items-center">
-
+          
           <ul class="navbar-nav navbar-nav-right">
 
             <li class="nav-item dropdown d-none d-xl-inline-block">
@@ -67,8 +69,8 @@
               <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
 
                 <span class="profile-text">{{ Auth::user()->name }}</span>
-
-                <img class="img-xs rounded-circle" src="{{ asset('images/logo.png') }}" alt="Profile image">
+                
+                <img class="img-xs rounded-circle" src="{{ asset($data->main_logo) }}" alt="Profile image">
 
               </a>
 

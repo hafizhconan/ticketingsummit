@@ -29,6 +29,9 @@
                     <div class="left">
                         <div class="content">
                             <div class="header">
+                            <?php 
+                                $data = App\Variable::findOrFail(1);
+                            ?>
                                 <p class="name"><a href="/">CCI SUMMIT</a></p>
                                 <p class="lead">Register your account</p>
                             </div>
@@ -84,7 +87,7 @@
                     </div>
                     <div class="right">
                         <div class="content text">
-                            <h1 class="heading" ><img src="{{ asset('images/logo.png') }}" style="width: 50%;!important" class="center"></h1>
+                            <h1 class="heading" ><img src="{{ asset($data->main_logo) }}" style="width: 50%;!important" class="center"></h1>
                         </div>
                     </div>
                     <div class="clearfix"></div>

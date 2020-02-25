@@ -34,7 +34,7 @@
 
       <td align="center" bgcolor="#f7f7f7" style="padding: 0px;">
 
-       <img src="https://i.imgur.com/zge0XiU.gif" alt="CCI Summit 2019" width="100%" height="auto" style="display: block;" />
+       <img src="{{ $header }}" alt="CCI Summit 2019" width="100%" height="auto" style="display: block;" />
 
       </td>
 
@@ -66,7 +66,7 @@
 
                <td style="padding: 20px 0 30px 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;" >
 
-                Simpan email ini sebagai bukti bahwa kamu telah melakukan registrasi pendaftaran dalam acara Techweek WEB DEVELOPMENT CCI Summit 2019. <b>Untuk mendapatkan tiket, segera lakukan pembayaran sesuai dengan tata cara yang sudah diberikan atau bisa  membayar ke panitia secara langsung dengan menghubungi official account yang tersedia. </b>
+                Simpan email ini sebagai bukti bahwa kamu telah melakukan registrasi pendaftaran dalam acara {{ $nama_singkat }} CCI Summit {{ $tahun_acara }}. <b>Untuk mendapatkan tiket, segera lakukan pembayaran sesuai dengan tata cara yang sudah diberikan atau bisa  membayar ke panitia secara langsung dengan menghubungi official account yang tersedia. </b>
 
                 <br>Setelah pembayaran terverifikasi, tiket anda akan segera kami kirimkan.</br>
 
@@ -118,7 +118,7 @@
 
                     <td style="padding: 10px 0 0 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
 
-                     W-{{ $id }}
+                     {{ $id }}
 
                     </td>
 
@@ -368,7 +368,7 @@
 
        <td width="75%" style="color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
 
-        &reg; CCI Summit 2019<br/>
+        &reg; CCI Summit {{ $tahun_acara }}<br/>
 
         All right reserved
 

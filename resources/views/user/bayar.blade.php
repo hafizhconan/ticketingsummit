@@ -67,8 +67,10 @@
                     <div class="row ticket-card">
 
                     <div class="col-md-5">
-
-                      <img class="img-fluid mb-4 mb-md-0" src="{{ asset('images/logo.png') }}" alt="profile image">
+                    <?php 
+                            $data = App\Variable::findOrFail(1);
+                            ?>
+                      <img class="img-fluid mb-4 mb-md-0" src="{{ asset($data->main_logo) }}" alt="profile image">
 
                     </div>
 
@@ -84,13 +86,13 @@
 
                         <h5>
 
-                          <li>Lakukan transfer uang pembayaran tiket sebesar RP.{{ $acara[$buyer->jenis_tiket]->harga}}.000,- ke rekening BNI :</li>
+                          <li>Lakukan transfer uang pembayaran tiket sebesar RP.{{ $acara->harga }}.000,- ke rekening :</li>
 
                           <blockquote class="blockquote text-primary">
+                            
+                            <p class="mb-0 h5">No. Rekn: {{ $data->no_rekn }}</p>
 
-                            <p class="mb-0 h5">No. Rekn: 586139988 (BNI)</p>
-
-                            <p class="mb-0 h5">A.N     : Salsabila Putri J</p>
+                            <p class="mb-0 h5">A.N     : {{ $data->nama_rekn }}</p>
 
                           </blockquote>
 
@@ -101,8 +103,8 @@
                           <li>Untuk melakukan konfirmasi pembayaran bisa melalui tombol menu <?php 
 
                           if($transaction->status_pembayaran == 0){
-
-                            echo '<a href="'.route("user.confirmation.edit", $transaction->id).'" class="btn btn-danger">Konfirmasi Pembayaran
+                            $crypt = Crypt::encryptString($transaction->id);
+                            echo '<a href="'.route("user.confirmation.edit", $crypt).'" class="btn btn-danger">Konfirmasi Pembayaran
 
                             </a>';
 
@@ -120,7 +122,7 @@
 
                       <blockquote class="blockquote text-danger">
 
-                        <p class="mb-0 h5">Lakukan Pembayaran Tiket Sebesar Rp.{{ $acara[$buyer->jenis_tiket]->harga}}.000,- </p>
+                        <p class="mb-0 h5">Lakukan Pembayaran Tiket Sebesar Rp.{{ $acara->harga }}.000,- </p>
 
                         <p class="mb-0 h5">Sebelum <?php
 
@@ -130,7 +132,7 @@
 
                       </blockquote>
 
-                      <p class="h4">CP : hilmi-hidayat (LINE), arbi_nb (LINE)</p>
+                      <p class="h4">CP : {{ $data->kontak1 }}, {{ $data->kontak2 }}</p>
 
                       <table border="0" cellpadding="0" cellspacing="0">
 

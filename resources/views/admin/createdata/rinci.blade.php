@@ -24,16 +24,7 @@
         <td>:</td>
 
         <td>
-            <?php
-
-                if($createdata->jenis_tiket == 2){
-                    echo '<label class="label label-success">Data Debunked Day</label>';
-                }else if($createdata->jenis_tiket == 4){
-                    echo '<label class="label label-primary">MM</label>';
-                }else{
-                    echo '<label class="label label-danger">Error</label>';
-                }
-            ?>
+            <label class="label label-success">{{ $acara->nama }}</label>
         </td>
 
         </tr>
@@ -227,13 +218,7 @@
         <td>:</td>
 
         <td><?php
-            if($createdata->jenis_tiket == 2){
-                echo QrCode::size(200)->generate('R-'.$ticket->Barcode);
-            }else if($createdata->jenis_tiket == 4){
-                echo QrCode::size(200)->generate('M-'.$ticket->Barcode);
-            }else{
-                echo 'Error';
-            }
+                echo QrCode::size(200)->generate($ticket->Barcode);
         ?></td>
 
         </tr>

@@ -53,10 +53,15 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/admin') }}">
+                    <a class="navbar-brand" href="{{ url('/admin/createdata') }}">
                         {{ "CCI Summit" }}
                     </a>
-                    <a href="{{route('admin.Event.index')}}">Event</a>
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ url('/admin/absensi') }}">Scan Absensi</a></li>
+                        <li><a href="{{ url('/admin/list') }}">List Kehadiran</a></li>
+                        <li><a href="{{route('admin.Event.index')}}">Event</a></li>
+                        
+                    </ul>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">

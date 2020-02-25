@@ -47,7 +47,7 @@
     </div>
     <div class="col-md-5">
         <div class="form-group">
-        {!! Form::label('harga','Harga') !!}
+        {!! Form::label('harga','Harga (K)') !!}
         {!! Form::text('harga', null, array('class' =>'form-control','placeholder' => 'Masukkan Harga')) !!}
         </div>
     </div>
@@ -61,6 +61,18 @@
         <div class="form-group">
         {!! Form::label('keterangan','Keterangan') !!}
         {!! Form::text('keterangan', null, array('class' =>'form-control','placeholder' => 'Masukkan Keterangan')) !!}
+        </div>
+    </div>
+    <div class="col-md-10 col-md-offset-1">
+        <div class="form-group">
+        {!! Form::label('header','Header Email') !!}
+        {!! Form::text('header', null, array('class' =>'form-control','placeholder' => 'https://i.imgur.com/linknya.png')) !!}
+        </div>
+    </div>
+    <div class="col-md-10 col-md-offset-1">
+        <div class="form-group">
+        {!! Form::label('nama_singkat','Nama Singkat') !!}
+        {!! Form::text('nama_singkat', null, array('class' =>'form-control','placeholder' => 'Masukkan Nama Singkat Acara')) !!}
         </div>
     </div>
         <div class="col-md-6 col-md-offset-1">

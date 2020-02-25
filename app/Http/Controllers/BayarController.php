@@ -10,6 +10,8 @@ use App\buyer;
 
 use App\Acara;
 
+use Crypt;
+
 class BayarController extends Controller
 {
     /**
@@ -47,11 +49,12 @@ class BayarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($encrypted)
     {
+        $id = Crypt::decryptString($encrypted);
         $transaction = transaction::findOrFail($id);
         $buyer = buyer::findOrFail($transaction->id_buyer);
-        $acara = acara::all();
+        $acara = acara::findOrFail($transaction->jenis_tiket);
         return view('user.bayar', compact('buyer','transaction','acara'));
     }
 

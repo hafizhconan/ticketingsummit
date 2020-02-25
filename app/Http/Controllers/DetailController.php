@@ -14,6 +14,8 @@ use App\ticket;
 
 use App\Acara;
 
+use Crypt;
+
 class DetailController extends Controller
 {
     /**
@@ -53,8 +55,9 @@ class DetailController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($encrypted)
     {
+        $id = Crypt::decryptString($encrypted);
         $createdata = transaction::find($id);
         $acara = acara::find($createdata->jenis_tiket);
         $date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $createdata->created_at)->format('Y-m-d');

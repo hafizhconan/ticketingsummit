@@ -68,7 +68,7 @@
 
                     <div class="col-md-5">
 
-                      <img class="img-fluid mb-4 mb-md-0" src="{{ asset($acara[$buyer->jenis_tiket]->logo) }}" alt="profile image">
+                      <img class="img-fluid mb-4 mb-md-0" src="{{ asset($acara->logo) }}" alt="profile image">
 
                     </div>
 
@@ -76,13 +76,13 @@
 
                       <div class="d-flex">
 
-                        <h3>{{ $acara[$buyer->jenis_tiket]->nama}}</h3>
+                        <h3>{{ $acara->nama}}</h3>
 
                       </div>
 
-                      <h5>{{ $acara[$buyer->jenis_tiket]->tgl}}</h5>
+                      <h5>{{ $acara->tgl}}</h5>
 
-                      <h5>{{ $acara[$buyer->jenis_tiket]->lokasi}}</h5>
+                      <h5>{{ $acara->lokasi}}</h5>
 
                       <p class="text-gray ellipsis mb-2">
 
@@ -91,17 +91,7 @@
                           $id = str_pad($createdata->id, 4, '0', STR_PAD_LEFT);
 
                           ?>
-                          <?php
-                          if($buyer->jenis_tiket == 1){
-                            echo "W";
-                          }else if($buyer->jenis_tiket == 2){
-                            echo "R";
-                          }else if($buyer->jenis_tiket == 3){
-                            echo "N";
-                          }else{
-                            echo "ERROR";
-                          }
-                          ?>-{{$id}}
+                          {{$id}}
 
                       </p>
 
@@ -191,7 +181,7 @@
 
                         <button type="submit" class="btn btn-success mr-2">Submit</button>
 
-                        <button class="btn btn-light">Cancel</button>
+                        <a href="" class="btn btn-light">Cancel</a>
 
                       </form>
 

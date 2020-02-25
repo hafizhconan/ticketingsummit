@@ -22,6 +22,8 @@ use App\Acara;
 
 use DB;
 
+use Crypt;
+
 class KonfirmasiController extends Controller
 {
     /**
@@ -72,10 +74,11 @@ class KonfirmasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($encrypted)
     {
-        $acara = acara::all();
+        $id = Crypt::decryptString($encrypted);
         $createdata = transaction::findOrFail($id);
+        $acara = acara::findorFail($createdata->jenis_tiket);
         $date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $createdata->created_at)->format('Y-m-d');
         $buyer = buyer::find($createdata->id_buyer);
         $user = user::find($createdata->id_user);

@@ -34,7 +34,7 @@
 
       <td align="center" bgcolor="#f7f7f7" style="padding: 0px;">
 
-       <img src="https://i.imgur.com/zge0XiU.gif" alt="CCI Summit 2019" width="100%" height="auto" style="display: block;" />
+       <img src="{{ $header }}" alt="CCI Summit 2019" width="100%" height="auto" style="display: block;" />
 
       </td>
 
@@ -56,7 +56,7 @@
 
        style="color: #153643; font-family: Arial, sans-serif; font-size: 24px;">
 
-                e-Ticket Techweek WEB DEVELOPMENT CCI SUMMIT 2019
+                e-Ticket {{ $nama_singkat }} CCI SUMMIT {{ $tahun_acara }}
 
                </td>
 
@@ -88,7 +88,7 @@
 
                         <td style="padding: 5px 3px 15px 0px; color: #153643; font-family: Arial, sans-serif; font-size: 15px; line-height: 20px; solid #cccccc;">
 
-                         <b>Tiket untuk Techweek WEB DEVELOPMENT CCI SUMMIT 2019</b>
+                         <b>Tiket untuk {{  $nama_singkat }} CCI SUMMIT {{ $tahun_acara }}</b>
 
                         </td>
 
@@ -98,7 +98,7 @@
 
                          <td style="padding: 5px 3px 4px 15px; color: #153643; font-family: Arial, sans-serif; font-size: 14px; line-height: 20px; border: 1px solid #cccccc;">
 
-                           Minggu, 24 Maret 13.00 WIB - Selesai, Lokasi TBA
+                           {{ $tgl }}, Lokasi {{ $lokasi }}
 
                          </td>
 
@@ -144,7 +144,7 @@
 
                          <td style="padding: 5px 3px 4px 15px; color: #153643; font-family: Arial, sans-serif; font-size: 14px; line-height: 20px; border: 1px solid #cccccc;">
 
-                            Elektronik Ticket (IDR 30.000)
+                            Elektronik Ticket (IDR {{ $harga }}.000)
 
                          </td>
 
@@ -210,7 +210,7 @@
 
                     <td style="padding: 10px 0 0 0; color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
 
-                     W-{{ $id }}
+                     {{ $id }}
 
                     </td>
 
@@ -452,7 +452,7 @@
 
                         <br>
 
-                        <img src="{!!$message->embedData(QrCode::format('png')->size(200)->generate('W-'.$barcode), 'QrCode.png', 'image/png')!!}"></p>
+                        <img src="{!!$message->embedData(QrCode::format('png')->size(200)->generate($barcode), 'QrCode.png', 'image/png')!!}"></p>
 
                         </br>
 
@@ -468,7 +468,7 @@
 
                <td style="color: #153643; font-family: Arial, sans-serif; font-size: 12px;">
 
-                <center>QR Code ini adalah e-Ticket untuk acara Techweek WEB DEVELOPMENT CCI Summit 2019</center>
+                <center>QR Code ini adalah e-Ticket untuk acara {{  $nama_singkat }} CCI SUMMIT {{ $tahun_acara }}</center>
 
                </td>
 
@@ -504,19 +504,19 @@
 
                           1. Pembeli secara hukum hanya berhak untuk menggunakan e-Ticket oleh satu pengguna sesuai dengan data pemesan. <b>Menduplikasi e-Ticket tidak diperbolehkan dan ilegal.</b><br>
 
-                          2. Setiap tiket berlaku untuk masuk ke acara Techweek WEB DEVELOPMENT CCI SUMMIT 2019 untuk satu orang saja.<br>
+                          2. Setiap tiket berlaku untuk masuk ke acara {{  $nama_singkat }} CCI SUMMIT {{ $tahun_acara }} untuk satu orang saja.<br>
 
-                          3. QR Code unik pada tiket digunakan untuk masuk ke acara Techweek WEB DEVELOPMENT CCI SUMMIT 2019.<br>
+                          3. QR Code unik pada tiket digunakan untuk masuk ke acara {{  $nama_singkat }} CCI SUMMIT {{ $tahun_acara }}.<br>
 
                           4. e-Ticket yang sudah dibeli <b>tidak dapat ditukar, diperjualbelikan, atau diuangkan kembali.</b><br>
 
-                          5. Pastikan e-Ticket siap untuk dipindai saat melakukan registrasi dalam acara Techweek WEB DEVELOPMENT CCI SUMMIT 2019.<br>
+                          5. Pastikan e-Ticket siap untuk dipindai saat melakukan registrasi dalam acara {{  $nama_singkat }} CCI SUMMIT {{ $tahun_acara }}.<br>
 
-                          6. Tiket ini adalah elektronik tiket, yang hanya dapat digunakan pada tanggal Minggu, 24 Maret Pukul 13.00 WIB - Selesai.<br>
+                          6. Tiket ini adalah elektronik tiket, yang hanya dapat digunakan pada tanggal {{ $tgl }}.<br>
 
                           7. Saat melakukan proses pemindaian e-Ticket, <b>peserta wajib membawa kartu identitas  baik berupa Kartu pelajar/Kartu mahasiswa, KTP, SIM ataupun sejenisnya yang masih berlaku dan sesuai dengan data pemesan.</b><br><br>
 
-                          <b>Simpan email ini sebagai tiket untuk masuk dalam acara Techweek WEB DEVELOPMENT CCI SUMMIT 2019. Lakukan scanning QR Code untuk masuk ke dalam event.</b>
+                          <b>Simpan email ini sebagai tiket untuk masuk dalam acara {{  $nama_singkat }} CCI SUMMIT {{ $tahun_acara }}. Lakukan scanning QR Code untuk masuk ke dalam event.</b>
 
                           <br><br><b>Hubungi official account untuk informasi lebih lanjut.</b></br>
 
@@ -558,7 +558,7 @@
 
        <td width="75%" style="color: #153643; font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
 
-        &reg; CCI Summit 2019<br/>
+        &reg; CCI Summit {{ $tahun_acara }}<br/>
 
         All right reserved
 

@@ -68,13 +68,13 @@
 
                       <div class="row purchace-popup">
 
-                        <div class="col-12">
+                        <div class="col-12 alert alert-success">
 
                           <div class="float-left">
 
                           <span class="d-block d-md-flex align-items-center">
 
-                            <p><strong>Success!</strong> {{ session('status') }}</p>
+                            <strong>Success!</strong> {{ session('status') }}
 
                           </span>
 
@@ -132,21 +132,8 @@
                           <td>
                           <?php 
                           $id = str_pad($createdatas->id, 4, '0', STR_PAD_LEFT);
-                          if($createdatas->jenis_tiket == 1){
-                            $depan = 'W';
-                          }else if($createdatas->jenis_tiket == 'Umum'){
-                            $depan = 'D';
-                          }else if($createdatas->jenis_tiket == 2){
-                            $depan = 'R';
-                          }else if($createdatas->jenis_tiket == 3){
-                            $depan = 'N';
-                          }else if($createdatas->jenis_tiket == 4){
-                            $depan = 'M';
-                          }else{
-                            $depan = 'ERROR';
-                          }
                           ?>
-                          {{ $depan }}-{{$id}}
+                          {{$id}}
                           </td>
 
                           <td>{{$createdatas->nama}}</td>
@@ -182,26 +169,26 @@
                           <td>
 
                             <?php 
-
+                            $crypt = Crypt::encryptString($createdatas->id);
                             if($createdatas->status_pembayaran == 1){
 
-                             echo '<a href="'.route("user.detail.show", $createdatas->id).'" class="btn btn-primary">Lihat Detail
+                             echo '<a href="'.route("user.detail.show", $crypt).'" class="btn btn-primary">Lihat Detail
 
                             </a>';
 
                             }else if($createdatas->status_pembayaran == 2){
 
-                              echo '<a href="'.route("user.bayar.show", $createdatas->id).'" class="btn btn-warning">Tata Cara Pembayaran
+                              echo '<a href="'.route("user.bayar.show", $crypt).'" class="btn btn-warning">Tata Cara Pembayaran
 
                               </a>';
 
                             }else{
 
-                              echo '<a href="'.route("user.bayar.show", $createdatas->id).'" class="btn btn-warning">Tata Cara Pembayaran
+                              echo '<a href="'.route("user.bayar.show", $crypt).'" class="btn btn-warning">Tata Cara Pembayaran
 
                               </a>';
 
-                              echo '<a href="'.route("user.confirmation.edit", $createdatas->id).'" class="btn btn-danger">Konfirmasi Pembayaran
+                              echo '<a href="'.route("user.confirmation.edit", $crypt).'" class="btn btn-danger">Konfirmasi Pembayaran
 
                             </a>';
 

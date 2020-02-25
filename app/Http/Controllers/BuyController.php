@@ -28,7 +28,11 @@ use QrCode;
 
 use Mail;
 
+use Crypt;
+
 use App\Acara;
+
+use App\Variable;
 
 use Kyslik\ColumnSortable\Sortable;
 
@@ -87,8 +91,9 @@ class BuyController extends Controller
         // return redirect()->route('user.buy.confirmation', $lastInsertedId)->with('status', 'Data berhasil dibuat!');
     }
 
-    public function confirmation($id)
+    public function confirmation($encrypted)
     {
+        $id = Crypt::decryptString($encrypted);
         $createdata = buyer::findOrFail($id);
         $acara = acara::find($createdata->jenis_tiket);
         $date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $createdata->created_at)->format('Y-m-d');
@@ -122,41 +127,31 @@ class BuyController extends Controller
         $createdatas = DB::table('transactions')->join('buyers', 'transactions.id_buyer', '=', 'buyers.id')->select('buyers.nama','buyers.from','buyers.no_hp','buyers.email')->where('transactions.id', '=', $id)->get();
         // $user = transaction::findOrFail($id);
         $transaction = transaction::findOrFail($id);
+        $variable = variable::findOrFail(1);
         $createdatas = buyer::findOrFail($transaction->id_buyer);
-        $acara = acara::all();
+        $acara = acara::findOrFail($transaction->jenis_tiket);
         $data = [
                     'id' => str_pad($transaction->id, 4, '0', STR_PAD_LEFT),
                    'nama' => $createdatas->nama,
                    'from' => $createdatas->from,
                    'no_hp' => $createdatas->no_hp,
                    'email' => $createdatas->email,
+                   'nama_singkat' => $acara->nama_singkat,
+                   'header' => $acara->header,
+                   'email' => $createdatas->email,
+                   'tahun_acara' => $variable->tahun_acara,
         ];
-        if($transaction->jenis_tiket == 2){
-            try {
-            Mail::send('admin.registration_research', $data, function($message) use ($createdatas){
-                   $message->to($createdatas->email, $createdatas->nama)->subject
-                      ('Data Debunked Day DATA RESEARCH CCI SUMMIT 2019 Registration');
-                   $message->from('ccisummit2019@gmail.com','CCI Summit');
-                });
-            } catch (Exception $ex) {
-                $ex->getMessage();
-                return "We've got errors!";
-            }
-        }else if($transaction->jenis_tiket == 4){
-            try {
-            Mail::send('admin.registration_mm', $data, function($message) use ($createdatas){
-                   $message->to($createdatas->email, $createdatas->nama)->subject
-                      ('Seminar Jurnalistik MEDIA MANAGEMENT CCI SUMMIT 2019 Registration');
-                   $message->from('ccisummit2019@gmail.com','CCI Summit');
-                });
-            } catch (Exception $ex) {
-                $ex->getMessage();
-                return "We've got errors!";
-            }
-        }else{
-            echo "error";
+        try {
+            Mail::send('admin.registration', $data, function($message) use ($createdatas){
+                $message->to($createdatas->email, $createdatas->nama)->subject('CCI Summit 2020');
+                $message->from('ccisummit@mg.cciunitel.com', 'CCI Unitel');
+             });
+        } catch (Exception $ex) {
+            $ex->getMessage();
+            return "We've got errors!";
         }
-        return redirect()->route('user.bayar.show',$transaction->id)->with('status', 'Tiket berhasil dibuat! Harap Segera Lakukan Pembayarn!');
+        $crypt = Crypt::encryptString($transaction->id);
+        return redirect()->route('user.bayar.show',$crypt)->with('status', 'Tiket berhasil dibuat! Harap Segera Lakukan Pembayarn!');
     }
     /**
      * Display the specified resource.
@@ -175,8 +170,9 @@ class BuyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($encrypted)
     {
+        $id = Crypt::decryptString($encrypted);
         $acara = acara::find($id);
         return view('user.buy', compact('acara'));
     }
@@ -212,7 +208,8 @@ class BuyController extends Controller
         $buyer->save();
 
         $lastInsertedId = $buyer->id;
-        return redirect()->route('user.buy.confirmation', $lastInsertedId)->with('status', 'Data berhasil dibuat!');
+        $crypt = Crypt::encryptString($lastInsertedId);
+        return redirect()->route('user.buy.confirmation', $crypt)->with('status', 'Data berhasil dibuat!');
     }
 
     /**

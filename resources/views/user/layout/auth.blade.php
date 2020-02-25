@@ -48,6 +48,7 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
+                    
                     @if (Auth::guest())
                         <li><a href="{{ url('/user/login') }}">Login</a></li>
                         <li><a href="{{ url('/user/register') }}">Register</a></li>

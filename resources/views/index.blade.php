@@ -1,4 +1,4 @@
-<!doctype html>
+     <!doctype html>
 <html lang="en" class="fullscreen-bg">
 
 <head>
@@ -28,6 +28,9 @@
                 <div class="auth-box ">
                     <div class="left">
                         <div class="content">
+                        <?php 
+                            $data = App\Variable::findOrFail(1);
+                        ?>
                             <div class="header">
                                 <p class="name"><a href="/">CCI SUMMIT</a></p>
                                 <p class="lead">Login to your account</p>
@@ -68,7 +71,7 @@
                     </div>
                     <div class="right">
                         <div class="content text">
-                            <h1 class="heading" ><img src="{{ asset('images/logo.png') }}" style="width: 50%;!important" class="center"></h1>
+                            <h1 class="heading" ><img src="{{ asset($data->main_logo) }}" style="width: 50%;!important" class="center"></h1>
                         </div>
                     </div>
                     <div class="clearfix"></div>

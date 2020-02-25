@@ -11,13 +11,17 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>No</th>
-								<th>Nama Acara</th>
-								<th>Tanggal</th>
-								<th>Lokasi</th>
-								<th>Jumlah</th>
-								<th>Harga</th>
-								<th>Action</th>
+								<th valign="middle">No</th>
+								<th valign="middle">Nama Acara</th>
+								<th valign="middle">Tanggal</th>
+								<th valign="middle">Lokasi</th>
+								<th valign="middle">Kuota</th>
+								<th valign="middle">Sisa Kuota</th>
+								<th valign="middle">Total Tiket</th>
+								<th valign="middle">Total Acc</th>
+								<th valign="middle">Total Belum Acc</th>
+								<th valign="middle">Harga</th>
+								<th valign="middle">Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -28,6 +32,15 @@
 								<td>{{$a->tgl}}</td>
 								<td>{{$a->lokasi}}</td>
 								<td>{{$a->jumlah}}</td>
+								<?php
+								$transaction_total = App\transaction::where('transactions.deleted', '=', null)->where('transactions.jenis_tiket', '=', $a->id)->count();
+								$transaction_acc = App\transaction::where('transactions.deleted', '=', null)->where('transactions.status_pembayaran', '=', 1)->where('transactions.jenis_tiket', '=', $a->id)->count();
+								$transaction_not_acc = App\transaction::where('transactions.deleted', '=', null)->where('transactions.status_pembayaran', '!=', 1)->where('transactions.jenis_tiket', '=', $a->id)->count();
+								?>
+								<td>{{$a->jumlah-$transaction_total}}</td>
+								<td>{{ $transaction_total}}</td>
+								<td>{{ $transaction_acc}}</td>
+								<td>{{ $transaction_not_acc}}</td>
 								<td>{{$a->harga}}</td>
 								<td>
 									<form method="POST" action="{{ route('admin.createdata.destroy', $a->id) }}" accept-charset="UTF-8">

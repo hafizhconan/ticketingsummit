@@ -28,6 +28,10 @@ use App\transaction;
 
 use App\bukti;
 
+use App\Acara;
+
+use App\Variable;
+
 use Auth;
 
 use DB;
@@ -42,14 +46,12 @@ class CreateDataController extends Controller
         $search = $request->get('search');
         $sort = $request->get('sort');
         $direction = $request->get('direction');
-        $transaction_total = transaction::where('transactions.deleted', '=', null)->where('transactions.jenis_tiket', '=', 4)->count();
-        $transaction_acc = transaction::where('transactions.deleted', '=', null)->where('transactions.status_pembayaran', '=', 1)->where('transactions.jenis_tiket', '=', 4)->count();
-        $transaction_not_acc = transaction::where('transactions.deleted', '=', null)->where('transactions.status_pembayaran', '!=', 1)->where('transactions.jenis_tiket', '=', 4)->count();
+        
         // $transaction_total_n = transaction::where('transactions.deleted', '=', null)->where('transactions.jenis_tiket', '=', 3)->count();
         // $transaction_acc_n = transaction::where('transactions.deleted', '=', null)->where('transactions.status_pembayaran', '=', 1)->where('transactions.jenis_tiket', '=', 3)->count();
         // $transaction_not_acc_n = transaction::where('transactions.deleted', '=', null)->where('transactions.status_pembayaran', '!=', 1)->where('transactions.jenis_tiket', '=', 3)->count();
         if($sort && $direction) {
-                $createdata = transaction::join('users', 'transactions.id_user', '=', 'users.id')->join('buyers', 'transactions.id_buyer', '=', 'buyers.id')->select('transactions.*','buyers.nama as nama','buyers.from as from','buyers.no_hp as no_hp','buyers.email as email', 'users.name as name_created_by')->where('transactions.deleted', '=', null)
+                $createdata = transaction::join('users', 'transactions.id_user', '=', 'users.id')->join('buyers', 'transactions.id_buyer', '=', 'buyers.id')->join('acaras', 'acaras.id', '=', 'transactions.jenis_tiket')->select('transactions.*','buyers.nama as nama','buyers.from as from','buyers.no_hp as no_hp','buyers.email as email', 'users.name as name_created_by','acaras.nama as nama_acara')->where('transactions.deleted', '=', null)
                 ->where(function($q) {
                     $q->where('transactions.jenis_tiket', '=', 4)
                       ->orWhere('transactions.jenis_tiket', '=', 5);
@@ -60,7 +62,7 @@ class CreateDataController extends Controller
                   ->Orwhere('buyers.email', 'like', '%' . $search . '%');
           })->orderBy($sort, $direction)->latest()->paginate(10)->withPath('?search=' . $search);
         }else{
-          $createdata = transaction::join('users', 'transactions.id_user', '=', 'users.id')->join('buyers', 'transactions.id_buyer', '=', 'buyers.id')->select('transactions.*','buyers.nama','buyers.from','buyers.no_hp','buyers.email', 'users.name as name_created_by')->where('transactions.deleted', '=', null)
+          $createdata = transaction::join('users', 'transactions.id_user', '=', 'users.id')->join('buyers', 'transactions.id_buyer', '=', 'buyers.id')->join('acaras', 'acaras.id', '=', 'transactions.jenis_tiket')->select('transactions.*','buyers.nama','buyers.from','buyers.no_hp','buyers.email', 'users.name as name_created_by','acaras.nama as nama_acara')->where('transactions.deleted', '=', null)
                 ->where(function($query) use ($search) {
             $query->Orwhere('buyers.nama', 'like', '%' . $search . '%')
                   ->Orwhere('buyers.no_hp', 'like', '%' . $search . '%')
@@ -205,6 +207,8 @@ class CreateDataController extends Controller
         $transaction = transaction::findOrFail($id);
         $user = buyer::findOrFail($transaction->id_buyer);
         $createdata = DB::table('transactions')->join('tickets', 'transactions.id_ticket', '=', 'tickets.id')->join('buyers', 'transactions.id_buyer', '=', 'buyers.id')->select('transactions.*','buyers.nama','buyers.from','buyers.no_hp','buyers.email', 'tickets.Barcode')->where('transactions.id', '=', $id)->get();
+        $variable = variable::findOrFail(1);
+        $acara = acara::findOrFail($transaction->jenis_tiket);
         foreach($createdata as $createdatas){
         $data = [
                     'id' => str_pad($createdatas->id, 4, '0', STR_PAD_LEFT),
@@ -213,32 +217,22 @@ class CreateDataController extends Controller
                    'no_hp' => $createdatas->no_hp,
                    'email' => $createdatas->email,
                    'barcode' => $createdatas->Barcode,
+                   'nama_singkat' => $acara->nama_singkat,
+                   'header' => $acara->header,
+                   'tgl' => $acara->tgl,
+                   'lokasi' => $acara->lokasi,
+                   'harga' => $acara->harga,
+                   'tahun_acara' => $variable->tahun_acara,
         ];
         }
-        if($transaction->jenis_tiket == 2){
-            try {
-                    Mail::send('admin.ticket_research', $data, function($message) use ($user){
-                       $message->to($user->email, $user->nama)->subject
-                          ('e-Ticket Data Debunked Day DATA RESEARCH CCI SUMMIT 2019');
-                       $message->from('ccisummit2019@gmail.com','CCI SUMMIT 2019');
-                    });
-                    } catch (Exception $ex) {
-                        $ex->getMessage();
-                        return "We've got errors!";
-                    }
-        }else if($transaction->jenis_tiket == 4){
-            try {
-                    Mail::send('admin.ticket_mm', $data, function($message) use ($user){
-                       $message->to($user->email, $user->nama)->subject
-                          ('e-Ticket Seminar Jurnalistik MEDIA MANAGEMENT SUMMIT 2019');
-                       $message->from('ccisummit2019@gmail.com','CCI SUMMIT 2019');
-                    });
-                    } catch (Exception $ex) {
-                        $ex->getMessage();
-                        return "We've got errors!";
-                    }
-        }else{
-            echo "error";
+        try {
+            Mail::send('admin.ticket', $data, function($message) use ($user){
+                $message->to($user->email, $user->nama)->subject('e-Ticket CCI Summit 2020');
+                $message->from('ccisummit@mg.cciunitel.com', 'CCI Unitel');
+             });
+        } catch (Exception $ex) {
+            $ex->getMessage();
+            return "We've got errors!";
         }
         
         $user = auth()->user();
@@ -258,13 +252,14 @@ class CreateDataController extends Controller
     public function show($id)
     {
         $createdata = transaction::findOrFail($id);
+        $acara = Acara::findOrFail($createdata->jenis_tiket);
         $date = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $createdata->created_at)->format('Y-m-d H:i:s');
         $dateline = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $createdata->created_at)->addHour(12);
         $buyer = buyer::find($createdata->id_buyer);
         $user = user::find($createdata->id_user);
         $ticket = ticket::find($createdata->id_ticket);
         $bukti = bukti::where('id_transaction', $id)->get();
-        return view('admin.createdata.rinci', compact('createdata','date','buyer','user','ticket','bukti','dateline'));
+        return view('admin.createdata.rinci', compact('createdata','date','buyer','user','ticket','bukti','dateline','acara'));
     }
 
     /**

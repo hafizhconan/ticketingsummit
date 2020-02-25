@@ -64,6 +64,18 @@
         {!! Form::text('keterangan', $acara->keterangan, array('class' =>'form-control','placeholder' => 'Masukkan Keterangan')) !!}
         </div>
     </div>
+    <div class="col-md-10 col-md-offset-1">
+        <div class="form-group">
+        {!! Form::label('header','Header Email') !!}
+        {!! Form::text('header', $acara->header, array('class' =>'form-control','placeholder' => 'https://i.imgur.com/linknya.png')) !!}
+        </div>
+    </div>
+    <div class="col-md-10 col-md-offset-1">
+        <div class="form-group">
+        {!! Form::label('nama_singkat','Nama Singkat') !!}
+        {!! Form::text('nama_singkat', $acara->nama_singkat, array('class' =>'form-control','placeholder' => 'Masukkan Nama Singkat Acara')) !!}
+        </div>
+    </div>
         <div class="col-md-6 col-md-offset-1">
             <div class="form-group">
            {!! Form::submit('Simpan', array('class' => 'btn btn-primary')) !!}

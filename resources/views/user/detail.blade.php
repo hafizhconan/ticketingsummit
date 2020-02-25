@@ -81,20 +81,7 @@
                         No Ticket : <?php 
 
                           $id = str_pad($createdata->id, 4, '0', STR_PAD_LEFT);
-                          if($createdata->jenis_tiket == 1){
-                            $depan = 'W';
-                          }else if($createdata->jenis_tiket == 'Umum'){
-                            $depan = 'D';
-                          }else if($createdata->jenis_tiket == 2){
-                            $depan = 'R';
-                          }else if($createdata->jenis_tiket == 3){
-                            $depan = 'N';
-                          }else if($createdata->jenis_tiket == 4){
-                            $depan = 'M';
-                          }else{
-                            $depan = 'ERROR';
-                          }
-                          ?>{{ $depan }}-{{$id}}
+                          ?>{{$id}}
 
                       </p>
 
@@ -127,31 +114,8 @@
                     <div class="col-md-3 justify-content-center">
 
                       <center>
-                        <?php
-                          if($createdata->jenis_tiket == 1){
-                            ?>
-                            {!!QrCode::size(250)->generate('W-'.$ticket->Barcode);!!}
-                            <?php
-                          }else if($createdata->jenis_tiket == 'Umum'){
-                            ?>
-                            {!!QrCode::size(250)->generate('D-'.$ticket->Barcode);!!}
-                            <?php
-                          }else if($createdata->jenis_tiket == 2){
-                            ?>
-                            {!!QrCode::size(250)->generate('R-'.$ticket->Barcode);!!}
-                            <?php
-                          }else if($createdata->jenis_tiket == 3){
-                            ?>
-                            {!!QrCode::size(250)->generate('N-'.$ticket->Barcode);!!}
-                            <?php
-                          }else if($createdata->jenis_tiket == 4){
-                            ?>
-                            {!!QrCode::size(250)->generate('M-'.$ticket->Barcode);!!}
-                            <?php
-                          }else{
-                            echo "ERROR";
-                          }
-                        ?>
+                        
+                            {!!QrCode::size(250)->generate($ticket->Barcode);!!}
                         
 
                       <!-- <img class="img-fluid mb-4 mb-md-0 pb-5" src="{{ asset('images/qrcode.png') }}" alt="profile image"> --></center>

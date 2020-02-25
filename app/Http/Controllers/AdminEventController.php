@@ -49,6 +49,7 @@ class AdminEventController extends Controller
     public function index()
     {
         $acara = Acara::all();
+        
         return view('admin/Event/index', compact('acara'));
     }
 
@@ -79,6 +80,8 @@ class AdminEventController extends Controller
             'harga' => 'required|numeric',
             'keterangan' => 'required',
             'logo' => 'required',
+            'header' => 'required',
+            'nama_singkat' => 'required',
 
         );
 
@@ -110,6 +113,8 @@ class AdminEventController extends Controller
         $data->keterangan = $request->keterangan;
         $data->jumlah = $request->jumlah;
         $data->harga = $request->harga;
+        $data->header = $request->header;
+        $data->nama_singkat = $request->nama_singkat;
         $data->save();
 
         return redirect()->route('admin.Event.index')->with('status', 'Data berhasil dibuat!');
@@ -156,13 +161,15 @@ class AdminEventController extends Controller
             'jumlah' => 'required|numeric',
             'harga' => 'required|numeric',
             'keterangan' => 'required',
-            'logo' => 'required',
+            'header' => 'required',
+            'nama_singkat' => 'required',
+            // 'logo' => 'required',
 
         );
 
         $validation = Validator::make(Input::all(), $rules);
         if($validation->fails()) {
-                return redirect()->route('admin.Event.create')->withInput()->withErrors($validation->messages())->with('status', 'Masukan Data yang sesuai!');
+                return redirect()->route('admin.Event.edit',$id)->withInput()->withErrors($validation->messages())->with('status', 'Masukan Data yang sesuai!');
         }
 
         //Tanggal
@@ -171,16 +178,20 @@ class AdminEventController extends Controller
         $tanggal = date("d", strtotime($tgl)); //Date
         $year = date("Y", strtotime($tgl)); //Year
         $kata = $bulan." ".$tanggal.", ".$year." Pukul ".$request->time." - Selesai";
-        
+        $data = Acara::findOrFail($id);
         //Logo
-        $file = RequestFacade::file('logo');
-        $filename = $file->getClientOriginalName();
-        $path = public_path().'/images';
-        $file->move($path, $filename);
+        if($request->logo){
+            $file = RequestFacade::file('logo');
+            $filename = "images/".$file->getClientOriginalName();
+            $path = public_path().'/images';
+            $file->move($path, $filename);
+        }else{
+            $filename = $data->logo;
+        }
+        
 
-        $data = new Acara;
         $data->nama = $request->nama;
-        $data->logo = "images/".$filename;
+        $data->logo = $filename;
         $data->tgl = $kata;
         $data->lokasi = $request->lokasi;
         $data->pemateri = $request->pemateri;
@@ -188,6 +199,8 @@ class AdminEventController extends Controller
         $data->keterangan = $request->keterangan;
         $data->jumlah = $request->jumlah;
         $data->harga = $request->harga;
+        $data->header = $request->header;
+        $data->nama_singkat = $request->nama_singkat;
         $data->save();
 
         return redirect()->route('admin.Event.index')->with('status', 'Data berhasil dibuat!');

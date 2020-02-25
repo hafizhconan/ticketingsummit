@@ -15,6 +15,11 @@
         <td>{{$acara->nama}}</td>
         </tr>
         <tr>
+        <td>{{Form::label('nama_singkat', 'Nama Singkat Acara')}}</td>
+        <td>:</td>
+        <td>{{$acara->nama_singkat}}</td>
+        </tr>
+        <tr>
         <td>{{Form::label('tgl', 'Tanggal')}}</td>
         <td>:</td>
         <td>{{$acara->tgl}}</td>
@@ -44,6 +49,12 @@
         <td>:</td>
         <td>{{$acara->keterangan}}</td>
         </tr>
+        <tr>
+        <td>{{Form::label('header', 'Header Email')}}</td>
+        <td>:</td>
+        <td><img src="{{$acara->header}}" width="50%"></td>
+        </tr>
+        
     <center>
     <tr><td><a href="{{ route('admin.Event.index') }}" button type="button" class="btn btn-warning">Back</a></td>
     </tr>

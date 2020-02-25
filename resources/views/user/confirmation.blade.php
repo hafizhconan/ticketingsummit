@@ -214,11 +214,11 @@
 
                   </div>
 
-                  <div class="row d-flex justify-content-center">
-
-                    <a href="{{ route('user.buy.ticket',$createdata->id) }}" class="btn btn-primary">Checkout</a>
-
-                    <a href="{{ route('user.home.index') }}" class="btn btn-danger">Cancel</a>
+                  <div class="row d-flex justify-content-center m-3">
+                    <a href="{{ route('user.home.index') }}" class="btn btn-danger" style="margin-right: 2%" id="nigga" readonly>Cancel</a>
+                    <form action="{{ route('user.buy.ticket',$createdata->id) }}" method="GET" id="formRegist">
+                      <button id="btnSubmit" onclick="btnSpinner()" class="btn btn-primary" type="submit">Checkout</button>
+                    </form>
 
                   </div>
 
@@ -227,8 +227,19 @@
         </div>
 
       </div>
-
+      <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
       
+      <script>
+    var btn = $('#btnSubmit')
+    var btn2 = $('#nigga')
+
+    $('#formRegist').submit(function btnSpinner(){
+      btn.html("<div class='spinner-border text-light' role='status'>Loading...</div>")
+      btn.attr('disabled','true')
+      btn2.addClass('disabled')
+    })
+  </script>
 
 @endsection
 
