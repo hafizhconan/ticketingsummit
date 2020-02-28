@@ -16,12 +16,30 @@ use DB;
 
 use Carbon;
 
+use App\Acara;
+
+use Illuminate\Support\Facades\Crypt;
+
 class AbsenController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $createdata = DB::table('transactions')->join('tickets', 'tickets.id', '=', 'transactions.id_ticket')->join('buyers', 'transactions.id_buyer', '=', 'buyers.id')->select('transactions.*','buyers.nama','tickets.Barcode')->where('tickets.deleted', '=', null)->where('transactions.status_pembayaran', '=', 1)->where('transactions.jenis_tiket', '=', 2)->get();
-        return view('admin.absensi.index', compact('createdata'));
+        $acara = Acara::all();
+        // $id = $request->get('acara');
+        if(!$request->get('acara')){
+            $id=$acara[0]->id;
+        }else{
+            $decrypt = Crypt::decryptString($request->get('acara'));
+            $id = $decrypt;
+        }
+        $createdata = DB::table('transactions')
+                ->join('tickets', 'tickets.id', '=', 'transactions.id_ticket')
+                ->join('buyers', 'transactions.id_buyer', '=', 'buyers.id')
+                ->select('transactions.*','buyers.nama','tickets.Barcode')
+                ->where('tickets.deleted', '=', null)
+                ->where('transactions.status_pembayaran', '=', 1)
+                ->where('transactions.jenis_tiket', '=', $id)->get();
+        return view('admin.absensi.index', compact('createdata','acara','id'));
     }
 
     /**
@@ -61,9 +79,10 @@ class AbsenController extends Controller
         $db = DB::table('tickets')->where('tickets.Barcode', '=', $teldu)->first();
         // dd($teldu);
         if (!is_null($db)) {
+            $acara = Acara::find($request->id);
             $mytime = Carbon\Carbon::now();
-            $date = $mytime->format('d-m-Y H:i:s');
-            if ($date >= "26-09-2019 00:00:00" && $date <= "5-10-2019 23:00:00") {
+            $date = $mytime->format('Y-m-d H:i');
+            if ($date >= $acara->due) {
                 if ($db->Absen_1 == null) {
                     $updatedatas = ticket::findOrFail($db->id);
                     $updatedatas->Absen_1 = 1;

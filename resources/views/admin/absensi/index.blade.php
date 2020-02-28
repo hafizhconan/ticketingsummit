@@ -104,8 +104,25 @@
 
             <div class="panel panel-info">
                 <div class="panel-body text-center">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <select class="form-control" id="camera-select"></select>
+                        </div>
+                        <div class="col-sm-6">
+                            <form action="{{route('admin.absensi.index')}}" method="get">
+                            <select name="acara" id="" class="form-control" onchange="this.form.submit();">
+                                @foreach ($acara as $a)
+                                    @if($a->id == $id)
+                                        <option value="{{Crypt::encryptString($a->id)}}" selected>{{$a->nama}}</option>
+                                    @else
+                                        <option value="{{Crypt::encryptString($a->id)}}">{{$a->nama}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                            </form>
+                        </div>
+                    </div>
                     <div class="col-md-6">
-                    <select class="form-control" id="camera-select"></select>
                         <div class="form-group">
                             <button title="Decode Image" class="btn btn-default btn-sm" id="decode-img" type="button" data-toggle="tooltip"><span class="glyphicon glyphicon-upload"></span></button>
                             <button title="Image shoot" class="btn btn-info btn-sm disabled" id="grab-img" type="button" data-toggle="tooltip"><span class="glyphicon glyphicon-picture"></span></button>
@@ -150,15 +167,17 @@
                                 <p id="scanned-QR"></p>
                                 {!! Form::open(['route'=>'admin.absensi.store','class'=>'form-horizontal tasi-form','method'=>'post'])  !!}
                                 <div class="form-group @if ($errors->has('qrcode')) has-error @endif">
-                                <input list="dokter" id="qrcode" name="qrcode" class="form-control">
-                                <datalist id="dokter">
-                                <?php foreach ($createdata as $data1) {?>
-                                <option id="qrcode" value="<?php echo $data1->Barcode ?>"><?php echo $data1->nama ?></option>
-                                <?php } ?>
-                                </datalist>
-                                @if ($errors->has('qrcode'))
-                                <span class="help-block">{{ $errors->first('qrcode') }}</span> @endif
-                                <button title="Process" class="btn btn-success btn-sm" id="process" type="submit" data-toggle="tooltip">Process</button>
+                                    <input list="dokter" id="qrcode" name="qrcode" class="form-control">
+                                    <input type="hidden" name="id" value="{{$id}}">
+                                    <datalist id="dokter">
+                                    <?php foreach ($createdata as $data1) {?>
+                                        <option id="qrcode" value="<?php echo $data1->Barcode ?>"><?php echo $data1->nama ?></option>
+                                    <?php } ?>
+                                    </datalist>
+                                    @if ($errors->has('qrcode'))
+                                        <span class="help-block">{{ $errors->first('qrcode') }}</span>
+                                    @endif
+                                    <button title="Process" class="btn btn-success btn-sm" id="process" type="submit" data-toggle="tooltip">Process</button>
                                 </div>
                                 {!! Form::close() !!}
                                 <!-- <input name="test" type="text"></input> -->
