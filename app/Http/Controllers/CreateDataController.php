@@ -71,7 +71,7 @@ class CreateDataController extends Controller
         }
         // $createdata = DB::table('buyers')->join('users', 'buyers.username', '=', 'users.id')->select('buyers.*', 'users.name as name_created_by')->latest()->paginate(5);
         
-        return view('admin.createdata.index', compact('createdata','sort','direction','transaction_total','transaction_acc','transaction_not_acc'));
+        return view('admin.createdata.index', compact('createdata','sort','direction'));
 
     }
 

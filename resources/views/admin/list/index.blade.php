@@ -3,6 +3,20 @@
 
     <div class="container">
     <!-- Error Catch -->
+	<div>
+		<form action="{{route('admin.list.index')}}" method="get">
+		<select name="acara" id="" class="form-control" onchange="this.form.submit();">
+			@foreach ($acara as $a)
+				@if($a->id == $id)
+					<option value="{{Crypt::encryptString($a->id)}}" selected>{{$a->nama}}</option>
+				@else
+					<option value="{{Crypt::encryptString($a->id)}}">{{$a->nama}}</option>
+				@endif
+			@endforeach
+		</select>
+		</form>
+	</div>
+	<br>
     <div class="col-md-6">
                 <center>
             <h4>Belum Hadir</h4>
