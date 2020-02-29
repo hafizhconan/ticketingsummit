@@ -109,13 +109,13 @@
                             <select class="form-control" id="camera-select"></select>
                         </div>
                         <div class="col-sm-6">
-                            <form action="{{route('admin.absensi.index')}}" method="get">
+                            <form action="{{route('admin.absensi.edit',$id)}}" method="get">
                             <select name="acara" id="" class="form-control" onchange="this.form.submit();">
                                 @foreach ($acara as $a)
                                     @if($a->id == $id)
-                                        <option value="{{Crypt::encryptString($a->id)}}" selected>{{$a->nama}}</option>
+                                        <a href=""><option value="{{ $a->id }}" selected></option></a>
                                     @else
-                                        <option value="{{Crypt::encryptString($a->id)}}">{{$a->nama}}</option>
+                                        <option value="{{ $a->id }}" >{{ $a->nama }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -165,7 +165,7 @@
                             <div class="caption">
                                 <h3>Scanned Result</h3>
                                 <p id="scanned-QR"></p>
-                                {!! Form::open(['route'=>'admin.absensi.store','class'=>'form-horizontal tasi-form','method'=>'post'])  !!}
+                                {!! Form::open(['route'=>['admin.absensi.update', $id],'class'=>'form-horizontal tasi-form','method'=> 'PATCH'])  !!}
                                 <div class="form-group @if ($errors->has('qrcode')) has-error @endif">
                                     <input list="dokter" id="qrcode" name="qrcode" class="form-control">
                                     <input type="hidden" name="id" value="{{$id}}">
