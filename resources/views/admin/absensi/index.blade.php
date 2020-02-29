@@ -15,6 +15,8 @@
         <link href="{{ asset('css/style-web.css') }}" rel="stylesheet">
         <!-- Scripts -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script>
             window.Laravel = <?php echo json_encode([
                 'csrfToken' => csrf_token(),
@@ -103,26 +105,26 @@
         @endif
 
             <div class="panel panel-info">
-                <div class="panel-body text-center">
+                <div class="panel-body">
+                    <h3 class="text-center">{{$now_playing->nama}}</h3>
+                    <br>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 text-center">
                             <select class="form-control" id="camera-select"></select>
                         </div>
                         <div class="col-sm-6">
-                            <form action="{{route('admin.absensi.edit',$id)}}" method="get">
-                            <select name="acara" id="" class="form-control" onchange="this.form.submit();">
-                                @foreach ($acara as $a)
-                                    @if($a->id == $id)
-                                        <a href=""><option value="{{ $a->id }}" selected></option></a>
-                                    @else
-                                        <option value="{{ $a->id }}" >{{ $a->nama }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                            </form>
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    @foreach ($acara as $a)
+                                        <li><a href="{{route('admin.absensi.edit', $a->id)}}">{{$a->nama_singkat}}</a></li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 text-center">
                         <div class="form-group">
                             <button title="Decode Image" class="btn btn-default btn-sm" id="decode-img" type="button" data-toggle="tooltip"><span class="glyphicon glyphicon-upload"></span></button>
                             <button title="Image shoot" class="btn btn-info btn-sm disabled" id="grab-img" type="button" data-toggle="tooltip"><span class="glyphicon glyphicon-picture"></span></button>
@@ -139,7 +141,7 @@
                         </div>
                         
                     </div>
-                        <div class="col-md-6" style="padding-top:7%">
+                        <div class="col-md-6 text-center" style="padding-top:7%">
                             <div class="well" style="width: 100%;">
                             <label id="zoom-value" width="100">Zoom: 2</label>
                             <input id="zoom" onchange="Page.changeZoom();" type="range" min="10" max="30" value="20">
@@ -160,7 +162,7 @@
                             <input id="flipHorizontal" onchange="Page.changeHorizontal();" type="checkbox">
                         </div>
                         </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12 text-center">
                         <div class="thumbnail" id="result">
                             <div class="caption">
                                 <h3>Scanned Result</h3>

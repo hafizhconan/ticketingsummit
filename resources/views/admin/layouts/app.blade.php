@@ -57,7 +57,8 @@
                         {{ "CCI Summit" }}
                     </a>
                     <ul class="nav navbar-nav">
-                        <li><a href="{{ url('/admin/absensi') }}">Scan Absensi</a></li>
+                        <?php $id = App\acara::first() ?>
+                        <li><a href="{{ route('admin.absensi.edit', $id->id) }}">Scan Absensi</a></li>
                         <li><a href="{{ url('/admin/list') }}">List Kehadiran</a></li>
                         <li><a href="{{route('admin.Event.index')}}">Event</a></li>
                         

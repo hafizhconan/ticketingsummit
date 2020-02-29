@@ -70,6 +70,7 @@ class AbsenController extends Controller
     {
         $acara = Acara::all();
         // $id = $request->get('acara');
+        $now_playing = Acara::find($id);
         $createdata = DB::table('transactions')
                 ->join('tickets', 'tickets.id', '=', 'transactions.id_ticket')
                 ->join('buyers', 'transactions.id_buyer', '=', 'buyers.id')
@@ -77,7 +78,7 @@ class AbsenController extends Controller
                 ->where('tickets.deleted', '=', null)
                 ->where('transactions.status_pembayaran', '=', 1)
                 ->where('transactions.jenis_tiket', '=', $id)->get();
-        return view('admin.absensi.index', compact('createdata','acara','id'));
+        return view('admin.absensi.index', compact('createdata','acara','id','now_playing'));
     }
 
     /**
