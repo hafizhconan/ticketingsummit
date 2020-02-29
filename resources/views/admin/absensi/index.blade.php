@@ -114,7 +114,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Pilih Event
                                 <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
                                     @foreach ($acara as $a)
