@@ -12,7 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('website');
+});
+
+Route::get('/ccisummit', function () {
+  return view('index');
 });
 
 Route::get('/test', function () {
