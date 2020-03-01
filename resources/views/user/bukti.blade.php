@@ -167,7 +167,7 @@
 
                         <label>Bukti Pembayaran* (Wajib)</label>
 
-                        {!! Form::file('Gambar', null, array('class' =>'form-control','placeholder' => 'Gambar')) !!}
+                        {!! Form::file('Gambar', array('class' =>'form-control','placeholder' => 'Gambar','accept'=>'image/*')) !!}
 
                         @if ($errors->has('Gambar')) <span class="help-block">{{ $errors->first('Gambar') }}</span> @endif
 

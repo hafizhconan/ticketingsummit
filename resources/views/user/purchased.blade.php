@@ -125,7 +125,7 @@
                         <tr>
                           <td>
                             <?php
-                            $title = App\acara::find($createdatas->jenis_tiket);
+                            $title = App\Acara::find($createdatas->jenis_tiket);
                             ?>
                             {{$title->nama}}
                           </td>

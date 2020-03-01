@@ -186,6 +186,7 @@ class BuyController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // dd($id);
         $rules = array(
                 'nama' => 'required|max:255',
                 'no_hp' => 'required|numeric',
@@ -195,7 +196,7 @@ class BuyController extends Controller
 
             $validation = Validator::make(Input::all(), $rules);
             if($validation->fails()) {
-                    return redirect()->route('user.buy.edit', $id)->withInput()->withErrors($validation->messages())->with('status', 'Masukan Data yang sesuai!');
+                    return redirect()->route('user.buy.edit', Crypt::encryptString($id))->withInput()->withErrors($validation->messages())->with('status', 'Masukan Data yang sesuai!');
             }
         $user = auth()->user();
         $buyer = new buyer();

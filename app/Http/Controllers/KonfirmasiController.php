@@ -97,12 +97,12 @@ class KonfirmasiController extends Controller
     {
         $rules = array(
                     'nama_pengirim' => 'required',
-                    'Gambar' => 'required','mimes:jpg,jpeg,JPEG,png,gif,bmp,JPG|max:8096',
+                    'Gambar' => 'required|mimes:jpg,jpeg,JPEG,png,gif,bmp,JPG|max:8096',
                     'bank_pengirim' => 'required',
                 );
                 $validation = Validator::make(Input::all(), $rules);
                 if($validation->fails()) {
-                        return redirect()->route('user.confirmation.edit', $id)->withInput()->withErrors($validation->messages())->with('status', 'Masukan Data yang sesuai!');
+                        return redirect()->route('user.confirmation.edit', Crypt::encryptString($id))->withInput()->withErrors($validation->messages())->with('status', 'Masukan Data yang sesuai!');
                 }
         if ( !empty ( $request->file('Gambar') ) ){
                 $photo = $request->file('Gambar')->getClientOriginalName();
