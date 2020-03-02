@@ -90,20 +90,20 @@
 
                           <blockquote class="blockquote text-primary">
                           <center>
-                            <p class="mb-0 h5 display-4">PEMBAYARAN VIA</p>
+                            <p class="mb-0 h5 display-4 text-primary">PEMBAYARAN VIA</p>
                             <p></p>
-                            <p class="mb-0 h5 display-5">REKENING</p>
+                            <p class="mb-0 h5 display-5 text-success">REKENING</p>
                             <P></P>
                             <p class="mb-0 h5">No. Rekn: {{ $data->no_rekn }}</p>
 
                             <p class="mb-0 h5">A.N     : {{ $data->nama_rekn }}</p>
                             <P></P>
-                            <p class="mb-0 h5 display-5">OVO</p>
+                            <p class="mb-0 h5 display-5 text-success">OVO</p>
                             <p class="mb-0 h5">No. HP: 082122424520</p>
                             <p class="mb-0 h5">A.N     : Heidea Yulia Firzania</p>
                             <p class="mb-0-5"><img src="{{ asset('/images/ovo-fix.jpg') }}" alt="" width="50%"></p>
                             <P></P>
-                            <p class="mb-0 h5 display-5">DANA</p>
+                            <p class="mb-0 h5 display-5 text-success">DANA</p>
                             <p class="mb-0 h5">No. HP: 082122424520</p>
                             <p class="mb-0 h5">A.N     : Heidea Yulia Firzania</p>
                             <p class="mb-0-5"><img src="{{ asset('/images/dana-fix.jpg') }}" alt="" width="50%"></p>
@@ -114,8 +114,8 @@
 
                           <li>Jika sudah melakukan transfer, simpan bukti transfer lalu segera lakukan konfirmasi pembayaran agar tiket dapat terkirim ke email anda.</li>
 
-                          <li>Untuk melakukan konfirmasi pembayaran bisa melalui tombol menu <?php 
-
+                          <li>Untuk melakukan konfirmasi pembayaran bisa melalui tombol menu <center><?php 
+                          
                           if($transaction->status_pembayaran == 0){
                             $crypt = Crypt::encryptString($transaction->id);
                             echo '<a href="'.route("user.confirmation.edit", $crypt).'" class="btn btn-danger">Konfirmasi Pembayaran
@@ -124,7 +124,7 @@
 
                           }
 
-                          ?></li>
+                          ?></center></li>
 
                           <li>Atau bisa membayar secara tunai dengan cara menghubungi contact person dibawah atau Official Account CCI yang tersedia.</li>
 

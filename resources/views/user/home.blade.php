@@ -35,7 +35,7 @@
             <div class="col-12 grid-margin">
                 <div class="card">
                     <div class="card-body">
-                        <img src="{{ asset('images/banner.png') }}" class="img-fluid">
+                        <img src="{{ asset('images/banner2.png') }}" class="img-fluid">
                     </div>
                 </div>
             </div>

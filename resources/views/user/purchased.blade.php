@@ -127,7 +127,10 @@
                             <?php
                             $title = App\Acara::find($createdatas->jenis_tiket);
                             ?>
-                            {{$title->nama}}
+                            {{ substr($title->nama,0,25)}}
+                            <?php if(substr($title->nama,26,1) != null){
+                              echo "...";
+                            } ?>
                           </td>
                           <td>
                           <?php 
