@@ -48,6 +48,11 @@
 										<input name="_token" type="hidden" value="{{ csrf_token() }}">
 										<a href="{{ route('admin.Event.edit', $a->id) }}" type="submit" button type="button" class="btn btn-warning">Edit</a>
 										<a href="{{ route('admin.Event.show', $a->id) }}" type="submit" button type="button" class="btn btn-warning">Detail</a>
+										@if($a->status == 'enable')
+											<a href="{{route('admin.event.status', $a->id)}}" type="button" class="btn btn-danger">Disabled</a>
+										@else
+											<a href="{{route('admin.event.status', $a->id)}}" type="button" class="btn btn-success">Enable</a>
+										@endif
 									</form>
 								</td>
 							</tr>

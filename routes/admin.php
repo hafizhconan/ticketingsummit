@@ -18,6 +18,8 @@ Route::resource('list','ListController')->middleware('admin');
 
 Route::resource('Event','AdminEventController')->middleware('admin');
 
+Route::get('/eventStatus/{id}', 'AdminEventController@changeStatus')->name('event.status')->middleware('admin');
+
 Route::get('/confirmation/{id}',[
       'as' => 'createdata.confirmation',
       'uses' => 'CreateDataController@confirmation'

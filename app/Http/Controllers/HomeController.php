@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $acara = acara::all();
+        $acara = acara::where('status','=','enable')->get();
         return view('user.home', compact('acara'));
     }
 

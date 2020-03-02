@@ -216,4 +216,16 @@ class AdminEventController extends Controller
     {
         //
     }
+
+    public function changeStatus($id){
+        $data = Acara::find($id);
+        if ($data->status == "enable"){
+            $data->status = "disable";
+        }else{
+            $data->status = "enable";
+        }
+        $data->save();
+
+        return redirect()->route('admin.Event.index')->with('status', 'Data berhasil diubah!');
+    }
 }
