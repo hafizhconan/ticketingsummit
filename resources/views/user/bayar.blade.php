@@ -86,14 +86,28 @@
 
                         <h5>
 
-                          <li>Lakukan transfer uang pembayaran tiket sebesar RP.{{ $acara->harga }}.000,- ke rekening :</li>
+                          <li>Lakukan transfer uang pembayaran tiket sebesar <span style="color: red;">RP.{{ $acara->harga }}.000,-</span> ke :</li>
 
                           <blockquote class="blockquote text-primary">
-                            
+                          <center>
+                            <p class="mb-0 h5 display-4">PEMBAYARAN VIA</p>
+                            <p></p>
+                            <p class="mb-0 h5 display-5">REKENING</p>
+                            <P></P>
                             <p class="mb-0 h5">No. Rekn: {{ $data->no_rekn }}</p>
 
                             <p class="mb-0 h5">A.N     : {{ $data->nama_rekn }}</p>
-
+                            <P></P>
+                            <p class="mb-0 h5 display-5">OVO</p>
+                            <p class="mb-0 h5">No. HP: 082122424520</p>
+                            <p class="mb-0 h5">A.N     : Heidea Yulia Firzania</p>
+                            <p class="mb-0-5"><img src="{{ asset('/images/ovo-fix.jpg') }}" alt="" width="50%"></p>
+                            <P></P>
+                            <p class="mb-0 h5 display-5">DANA</p>
+                            <p class="mb-0 h5">No. HP: 082122424520</p>
+                            <p class="mb-0 h5">A.N     : Heidea Yulia Firzania</p>
+                            <p class="mb-0-5"><img src="{{ asset('/images/dana-fix.jpg') }}" alt="" width="50%"></p>
+                          </center>
                           </blockquote>
 
                           <li>Pada kolom keterangan isikan nama : {{ $buyer->nama}}</li>

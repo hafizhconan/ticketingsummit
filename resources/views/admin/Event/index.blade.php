@@ -49,9 +49,9 @@
 										<a href="{{ route('admin.Event.edit', $a->id) }}" type="submit" button type="button" class="btn btn-warning">Edit</a>
 										<a href="{{ route('admin.Event.show', $a->id) }}" type="submit" button type="button" class="btn btn-warning">Detail</a>
 										@if($a->status == 'enable')
-											<a href="{{route('admin.event.status', $a->id)}}" type="button" class="btn btn-danger">Disabled</a>
+											<a href="{{route('admin.event.status', $a->id)}}" type="button" class="btn btn-danger">Disable Event</a>
 										@else
-											<a href="{{route('admin.event.status', $a->id)}}" type="button" class="btn btn-success">Enable</a>
+											<a href="{{route('admin.event.status', $a->id)}}" type="button" class="btn btn-success">Enable Event</a>
 										@endif
 									</form>
 								</td>
