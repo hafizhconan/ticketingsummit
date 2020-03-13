@@ -113,7 +113,8 @@ class AbsenController extends Controller
             $acara = Acara::find($request->id);
             $mytime = Carbon\Carbon::now();
             $date = $mytime->format('Y-m-d H:i');
-            if ($date >= $acara->due) {
+            $due = date('Y-m-d H:i', strtotime('-2 hours', strtotime($acara->due)));
+            if ($date >= $due) {
                 if ($db->Absen_1 == null) {
                     $updatedatas = ticket::findOrFail($db->id);
                     $updatedatas->Absen_1 = 1;
